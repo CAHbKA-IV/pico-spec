@@ -131,7 +131,7 @@ Your filesystem tree must be look like:
  cd build
  ./build.sh
 ```
- - After building artifacts will be available in `pico-cpec/bin` directory
+ - After building artifacts will be available in `pico-spec/bin` directory
 
 ## Contributing
  This is a fork of [this repository](https://github.com/DnCraptor/pico-spec) . Please contribute there.
