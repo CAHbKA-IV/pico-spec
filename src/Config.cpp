@@ -90,6 +90,8 @@ uint8_t  Config::audio_driver = 0;
 extern "C" uint8_t  video_driver = 0;
 bool     Config::byte_cobmect_mode = false;
 
+bool     Config::shifted_layout = true;
+
 void Config::requestMachine(string newArch, string newRomSet)
 {
     arch = newArch;
@@ -400,6 +402,7 @@ void Config::load() {
         else if (mem_pg_cnt > 512) MEM_PG_CNT = 512;
         #endif
         else MEM_PG_CNT = mem_pg_cnt;
+        nvs_get_b("shifted_layout", Config::shifted_layout, sts);
     }
 }
 
@@ -524,6 +527,7 @@ void Config::save() {
         nvs_set_str(handle,"video_driver", video_driver == 0 ? "auto" : (video_driver == 1) ? "vga" : "hdmi");
         nvs_set_str(handle,"byte_cobmect_mode", Config::byte_cobmect_mode ? "true" : "false");
         nvs_set_i(handle,"MEM_PG_CNT", MEM_PG_CNT);
+        nvs_set_str(handle,"shifted_layout", Config::shifted_layout ? "true" : "false");
         fclose2(handle);
     }
     // printf("Config saved OK\n");

@@ -2870,6 +2870,38 @@ void OSD::do_OSD(fabgl::VirtualKey KeytoESP, bool ALT, bool CTRL) {
                                             break;
                                         }
                                     }
+                                } else if (options_num == 12) {
+                                    menu_level = 3;
+                                    menu_curopt = 1;
+                                    menu_saverect = true;
+                                    while (1) {
+                                        string kb_menu = MENU_KBLAYOUT[Config::lang];
+                                        bool prev_kb = Config::shifted_layout;
+                                        if (prev_kb) {
+                                            kb_menu.replace(kb_menu.find("[Y",0),2,"[*");
+                                            kb_menu.replace(kb_menu.find("[N",0),2,"[ ");
+                                        } else {
+                                            kb_menu.replace(kb_menu.find("[Y",0),2,"[ ");
+                                            kb_menu.replace(kb_menu.find("[N",0),2,"[*");
+                                        }
+                                        uint8_t opt2 = menuRun(kb_menu);
+                                        if (opt2) {
+                                            if (opt2 == 1)
+                                                Config::shifted_layout = true;
+                                            else
+                                                Config::shifted_layout = false;
+
+                                            if (Config::shifted_layout != prev_kb) {
+                                                Config::save();
+                                            }
+                                            menu_curopt = opt2;
+                                            menu_saverect = false;
+                                        } else {
+                                            menu_curopt = 1;
+                                            menu_level = 2;
+                                            break;
+                                        }
+                                    }
                                 }
                             } else {
                                 menu_curopt = 7;

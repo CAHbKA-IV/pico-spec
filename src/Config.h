@@ -125,6 +125,7 @@ public:
     static bool gigascreen_enabled;
     static uint8_t audio_driver;
     static bool byte_cobmect_mode;
+    static bool shifted_layout;
 };
 
 #endif // Config.h

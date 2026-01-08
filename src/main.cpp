@@ -106,6 +106,7 @@ extern "C" bool handleScancode(const uint32_t ps2scancode) {
         uint8_t cd = ps2scancode & 0xFF;
         bool pressed = cd < 0x80;
         cd &= 0x7F;
+
         switch (cd) {
             case 0x5B: kbdPushData(fabgl::VirtualKey::VK_LCTRL, pressed); return true; /// L WIN
             case 0x1D: {
@@ -167,35 +168,70 @@ extern "C" bool handleScancode(const uint32_t ps2scancode) {
     uint8_t cd = ps2scancode & 0xFF;
     bool pressed = cd < 0x80;
     cd &= 0x7F;
-    switch (cd) {
-        case 0x1E: kbdPushData(fabgl::VirtualKey::VK_A, pressed); return true;
-        case 0x30: kbdPushData(fabgl::VirtualKey::VK_B, pressed); return true;
-        case 0x2E: kbdPushData(fabgl::VirtualKey::VK_C, pressed); return true;
-        case 0x20: kbdPushData(fabgl::VirtualKey::VK_D, pressed); return true;
-        case 0x12: kbdPushData(fabgl::VirtualKey::VK_E, pressed); return true;
-        case 0x21: kbdPushData(fabgl::VirtualKey::VK_F, pressed); return true;
-        case 0x22: kbdPushData(fabgl::VirtualKey::VK_G, pressed); return true;
-        case 0x23: kbdPushData(fabgl::VirtualKey::VK_H, pressed); return true;
-        case 0x17: kbdPushData(fabgl::VirtualKey::VK_I, pressed); return true;
-        case 0x24: kbdPushData(fabgl::VirtualKey::VK_J, pressed); return true;
-        case 0x25: kbdPushData(fabgl::VirtualKey::VK_K, pressed); return true;
-        case 0x26: kbdPushData(fabgl::VirtualKey::VK_L, pressed); return true;
-        case 0x32: kbdPushData(fabgl::VirtualKey::VK_M, pressed); return true;
-        case 0x31: kbdPushData(fabgl::VirtualKey::VK_N, pressed); return true;
-        case 0x18: kbdPushData(fabgl::VirtualKey::VK_O, pressed); return true;
-        case 0x19: kbdPushData(fabgl::VirtualKey::VK_P, pressed); return true;
-        case 0x10: kbdPushData(fabgl::VirtualKey::VK_Q, pressed); return true;
-        case 0x13: kbdPushData(fabgl::VirtualKey::VK_R, pressed); return true;
-        case 0x1F: kbdPushData(fabgl::VirtualKey::VK_S, pressed); return true;
-        case 0x14: kbdPushData(fabgl::VirtualKey::VK_T, pressed); return true;
-        case 0x16: kbdPushData(fabgl::VirtualKey::VK_U, pressed); return true;
-        case 0x2F: kbdPushData(fabgl::VirtualKey::VK_V, pressed); return true;
-        case 0x11: kbdPushData(fabgl::VirtualKey::VK_W, pressed); return true;
-        case 0x2D: kbdPushData(fabgl::VirtualKey::VK_X, pressed); return true;
-        case 0x15: kbdPushData(fabgl::VirtualKey::VK_Y, pressed); return true;
-        case 0x2C: kbdPushData(fabgl::VirtualKey::VK_Z, pressed); return true;
-
-        case 0x0B: kbdPushData(fabgl::VirtualKey::VK_0, pressed); return true;
+    if (Config::shifted_layout) {
+      switch (cd) {
+        // First Row
+        case 0x01: kbdPushData(fabgl::VirtualKey::VK_MINUS, pressed); return true;
+        case 0x02: kbdPushData(fabgl::VirtualKey::VK_EQUALS, pressed); return true;
+        case 0x03: kbdPushData(fabgl::VirtualKey::VK_1, pressed); return true;
+        case 0x04: kbdPushData(fabgl::VirtualKey::VK_2, pressed); return true;
+        case 0x05: kbdPushData(fabgl::VirtualKey::VK_3, pressed); return true;
+        case 0x06: kbdPushData(fabgl::VirtualKey::VK_4, pressed); return true;
+        case 0x07: kbdPushData(fabgl::VirtualKey::VK_5, pressed); return true;
+        case 0x08: kbdPushData(fabgl::VirtualKey::VK_6, pressed); return true;
+        case 0x09: kbdPushData(fabgl::VirtualKey::VK_7, pressed); return true;
+        case 0x0A: kbdPushData(fabgl::VirtualKey::VK_8, pressed); return true;
+        case 0x0C: kbdPushData(fabgl::VirtualKey::VK_0, pressed); return true;
+        case 0x0D: kbdPushData(fabgl::VirtualKey::VK_ESCAPE, pressed); return true;
+        // Second Row
+        case 0x0F: {
+            if (Config::TABasfire1) JPAD(fabgl::VirtualKey::VK_DPAD_FIRE, pressed);
+        //    kbdPushData(fabgl::VirtualKey::VK_SLASH, pressed);
+            kbdPushData(fabgl::VirtualKey::VK_BACKSPACE, pressed);
+            return true;
+        }
+        case 0x10: kbdPushData(fabgl::VirtualKey::VK_LEFTBRACKET, pressed); return true;
+        case 0x11: kbdPushData(fabgl::VirtualKey::VK_Q, pressed); return true;
+        case 0x12: kbdPushData(fabgl::VirtualKey::VK_W, pressed); return true;
+        case 0x13: kbdPushData(fabgl::VirtualKey::VK_E, pressed); return true;
+        case 0x14: kbdPushData(fabgl::VirtualKey::VK_R, pressed); return true;
+        case 0x15: kbdPushData(fabgl::VirtualKey::VK_T, pressed); return true;
+        case 0x16: kbdPushData(fabgl::VirtualKey::VK_Y, pressed); return true;
+        case 0x17: kbdPushData(fabgl::VirtualKey::VK_U, pressed); return true;
+        case 0x18: kbdPushData(fabgl::VirtualKey::VK_I, pressed); return true;
+        case 0x19: kbdPushData(fabgl::VirtualKey::VK_O, pressed); return true;
+        case 0x1A: kbdPushData(fabgl::VirtualKey::VK_P, pressed); return true;
+        case 0x1B: kbdPushData(fabgl::VirtualKey::VK_QUOTE, pressed); return true;
+        case 0x2B: kbdPushData(fabgl::VirtualKey::VK_BACKSLASH, pressed); return true;
+	// Third Row
+        case 0x3A: kbdPushData(fabgl::VirtualKey::VK_TAB, pressed); return true; /// TODO: CapsLock
+        case 0x1E: kbdPushData(fabgl::VirtualKey::VK_RIGHTBRACKET, pressed); return true;
+        case 0x1F: kbdPushData(fabgl::VirtualKey::VK_A, pressed); return true;
+        case 0x20: kbdPushData(fabgl::VirtualKey::VK_S, pressed); return true;
+        case 0x21: kbdPushData(fabgl::VirtualKey::VK_D, pressed); return true;
+        case 0x22: kbdPushData(fabgl::VirtualKey::VK_F, pressed); return true;
+        case 0x23: kbdPushData(fabgl::VirtualKey::VK_G, pressed); return true;
+        case 0x24: kbdPushData(fabgl::VirtualKey::VK_H, pressed); return true;
+        case 0x25: kbdPushData(fabgl::VirtualKey::VK_I, pressed); return true;
+        case 0x26: kbdPushData(fabgl::VirtualKey::VK_J, pressed); return true;
+        case 0x27: kbdPushData(fabgl::VirtualKey::VK_K, pressed); return true;
+        case 0x28: kbdPushData(fabgl::VirtualKey::VK_SEMICOLON, pressed); return true;
+        // Fourth Row
+        case 0x2C: kbdPushData(fabgl::VirtualKey::VK_CAPSLOCK, pressed); return true;
+        case 0x2D: kbdPushData(fabgl::VirtualKey::VK_Z, pressed); return true;
+        case 0x2E: kbdPushData(fabgl::VirtualKey::VK_X, pressed); return true;
+        case 0x2F: kbdPushData(fabgl::VirtualKey::VK_C, pressed); return true;
+        case 0x30: kbdPushData(fabgl::VirtualKey::VK_V, pressed); return true;
+        case 0x31: kbdPushData(fabgl::VirtualKey::VK_B, pressed); return true;
+        case 0x32: kbdPushData(fabgl::VirtualKey::VK_N, pressed); return true;
+        case 0x33: kbdPushData(fabgl::VirtualKey::VK_M, pressed); return true;
+        case 0x34: kbdPushData(fabgl::VirtualKey::VK_COMMA, pressed); return true;
+        case 0x35: kbdPushData(fabgl::VirtualKey::VK_PERIOD, pressed); return true;
+      }
+    } else {
+      switch (cd) {
+        // First Row
+        case 0x01: kbdPushData(fabgl::VirtualKey::VK_ESCAPE, pressed); return true;
         case 0x02: kbdPushData(fabgl::VirtualKey::VK_1, pressed); return true;
         case 0x03: kbdPushData(fabgl::VirtualKey::VK_2, pressed); return true;
         case 0x04: kbdPushData(fabgl::VirtualKey::VK_3, pressed); return true;
@@ -205,18 +241,64 @@ extern "C" bool handleScancode(const uint32_t ps2scancode) {
         case 0x08: kbdPushData(fabgl::VirtualKey::VK_7, pressed); return true;
         case 0x09: kbdPushData(fabgl::VirtualKey::VK_8, pressed); return true;
         case 0x0A: kbdPushData(fabgl::VirtualKey::VK_9, pressed); return true;
-
-        case 0x29: kbdPushData(fabgl::VirtualKey::VK_TILDE, pressed); return true;
         case 0x0C: kbdPushData(fabgl::VirtualKey::VK_MINUS, pressed); return true;
         case 0x0D: kbdPushData(fabgl::VirtualKey::VK_EQUALS, pressed); return true;
-        case 0x2B: kbdPushData(fabgl::VirtualKey::VK_BACKSLASH, pressed); return true;
+        // Second Row
+        case 0x0F: {
+            if (Config::TABasfire1) JPAD(fabgl::VirtualKey::VK_DPAD_FIRE, pressed);
+            kbdPushData(fabgl::VirtualKey::VK_TAB, pressed);
+            return true;
+        }
+        case 0x10: kbdPushData(fabgl::VirtualKey::VK_Q, pressed); return true;
+        case 0x11: kbdPushData(fabgl::VirtualKey::VK_W, pressed); return true;
+        case 0x12: kbdPushData(fabgl::VirtualKey::VK_E, pressed); return true;
+        case 0x13: kbdPushData(fabgl::VirtualKey::VK_R, pressed); return true;
+        case 0x14: kbdPushData(fabgl::VirtualKey::VK_T, pressed); return true;
+        case 0x15: kbdPushData(fabgl::VirtualKey::VK_Y, pressed); return true;
+        case 0x16: kbdPushData(fabgl::VirtualKey::VK_U, pressed); return true;
+        case 0x17: kbdPushData(fabgl::VirtualKey::VK_I, pressed); return true;
+        case 0x18: kbdPushData(fabgl::VirtualKey::VK_O, pressed); return true;
+        case 0x19: kbdPushData(fabgl::VirtualKey::VK_P, pressed); return true;
         case 0x1A: kbdPushData(fabgl::VirtualKey::VK_LEFTBRACKET, pressed); return true;
         case 0x1B: kbdPushData(fabgl::VirtualKey::VK_RIGHTBRACKET, pressed); return true;
+        case 0x2B: kbdPushData(fabgl::VirtualKey::VK_BACKSLASH, pressed); return true;
+	// Third Row
+        case 0x3A: kbdPushData(fabgl::VirtualKey::VK_CAPSLOCK, pressed); return true; /// TODO: CapsLock
+        case 0x1E: kbdPushData(fabgl::VirtualKey::VK_A, pressed); return true;
+        case 0x1F: kbdPushData(fabgl::VirtualKey::VK_S, pressed); return true;
+        case 0x20: kbdPushData(fabgl::VirtualKey::VK_D, pressed); return true;
+        case 0x21: kbdPushData(fabgl::VirtualKey::VK_F, pressed); return true;
+        case 0x22: kbdPushData(fabgl::VirtualKey::VK_G, pressed); return true;
+        case 0x23: kbdPushData(fabgl::VirtualKey::VK_H, pressed); return true;
+        case 0x24: kbdPushData(fabgl::VirtualKey::VK_J, pressed); return true;
+        case 0x25: kbdPushData(fabgl::VirtualKey::VK_K, pressed); return true;
+        case 0x26: kbdPushData(fabgl::VirtualKey::VK_L, pressed); return true;
         case 0x27: kbdPushData(fabgl::VirtualKey::VK_SEMICOLON, pressed); return true;
         case 0x28: kbdPushData(fabgl::VirtualKey::VK_QUOTE, pressed); return true;
+        // Fourth Row
+        case 0x2C: kbdPushData(fabgl::VirtualKey::VK_Z, pressed); return true;
+        case 0x2D: kbdPushData(fabgl::VirtualKey::VK_X, pressed); return true;
+        case 0x2E: kbdPushData(fabgl::VirtualKey::VK_C, pressed); return true;
+        case 0x2F: kbdPushData(fabgl::VirtualKey::VK_V, pressed); return true;
+        case 0x30: kbdPushData(fabgl::VirtualKey::VK_B, pressed); return true;
+        case 0x31: kbdPushData(fabgl::VirtualKey::VK_N, pressed); return true;
+        case 0x32: kbdPushData(fabgl::VirtualKey::VK_M, pressed); return true;
         case 0x33: kbdPushData(fabgl::VirtualKey::VK_COMMA, pressed); return true;
         case 0x34: kbdPushData(fabgl::VirtualKey::VK_PERIOD, pressed); return true;
         case 0x35: kbdPushData(fabgl::VirtualKey::VK_SLASH, pressed); return true;
+        // Fifth Row
+        case 0x38: {
+            if (Config::CursorAsJoy) JPAD(fabgl::VirtualKey::VK_DPAD_FIRE, pressed);
+            kbdPushData(fabgl::VirtualKey::VK_LALT, pressed);
+            return true;
+        }
+      }
+    }
+    switch (cd) {
+
+        case 0x0B: kbdPushData(fabgl::VirtualKey::VK_0, pressed); return true;
+
+        case 0x29: kbdPushData(fabgl::VirtualKey::VK_TILDE, pressed); return true;
 
         case 0x0E: {
             joyPushData(fabgl::VirtualKey::VK_MENU_BS, pressed);
@@ -228,26 +310,14 @@ extern "C" bool handleScancode(const uint32_t ps2scancode) {
             kbdPushData(fabgl::VirtualKey::VK_SPACE, pressed);
             return true;
         }
-        case 0x0F: {
-            if (Config::TABasfire1) JPAD(fabgl::VirtualKey::VK_DPAD_FIRE, pressed);
-            kbdPushData(fabgl::VirtualKey::VK_TAB, pressed);
-            return true;
-        }
-        case 0x3A: kbdPushData(fabgl::VirtualKey::VK_CAPSLOCK, pressed); return true; /// TODO: CapsLock
         case 0x2A: kbdPushData(fabgl::VirtualKey::VK_LSHIFT, pressed); return true;
         case 0x1D: kbdPushData(fabgl::VirtualKey::VK_LCTRL, pressed); return true;
-        case 0x38: {
-            if (Config::CursorAsJoy) JPAD(fabgl::VirtualKey::VK_DPAD_FIRE, pressed);
-            kbdPushData(fabgl::VirtualKey::VK_LALT, pressed);
-            return true;
-        }
         case 0x36: kbdPushData(fabgl::VirtualKey::VK_RSHIFT, pressed); return true;
         case 0x1C: {
             joyPushData(fabgl::VirtualKey::VK_MENU_ENTER, pressed);
             kbdPushData(fabgl::VirtualKey::VK_RETURN, pressed);
             return true;
         }
-        case 0x01: kbdPushData(fabgl::VirtualKey::VK_ESCAPE, pressed); return true;
         case 0x3B: kbdPushData(fabgl::VirtualKey::VK_F1, pressed); return true;
         case 0x3C: kbdPushData(fabgl::VirtualKey::VK_F2, pressed); return true;
         case 0x3D: kbdPushData(fabgl::VirtualKey::VK_F3, pressed); return true;
@@ -494,47 +564,7 @@ inline static bool isInReport(hid_keyboard_report_t const *report, const unsigne
 uint8_t pressed_key[256] = { 0 };
 extern uint8_t debug_number;
 fabgl::VirtualKey map_key(uint8_t kc) {
-    switch(kc) {
-        case HID_KEY_SPACE: return fabgl::VirtualKey::VK_SPACE;
-
-        case HID_KEY_A: return fabgl::VirtualKey::VK_A;
-        case HID_KEY_B: return fabgl::VirtualKey::VK_B;
-        case HID_KEY_C: return fabgl::VirtualKey::VK_C;
-        case HID_KEY_D: return fabgl::VirtualKey::VK_D;
-        case HID_KEY_E: return fabgl::VirtualKey::VK_E;
-        case HID_KEY_F: return fabgl::VirtualKey::VK_F;
-        case HID_KEY_G: return fabgl::VirtualKey::VK_G;
-        case HID_KEY_H: return fabgl::VirtualKey::VK_H;
-        case HID_KEY_I: return fabgl::VirtualKey::VK_I;
-        case HID_KEY_J: return fabgl::VirtualKey::VK_J;
-        case HID_KEY_K: return fabgl::VirtualKey::VK_K;
-        case HID_KEY_L: return fabgl::VirtualKey::VK_L;
-        case HID_KEY_M: return fabgl::VirtualKey::VK_M;
-        case HID_KEY_N: return fabgl::VirtualKey::VK_N;
-        case HID_KEY_O: return fabgl::VirtualKey::VK_O;
-        case HID_KEY_P: return fabgl::VirtualKey::VK_P;
-        case HID_KEY_Q: return fabgl::VirtualKey::VK_Q;
-        case HID_KEY_R: return fabgl::VirtualKey::VK_R;
-        case HID_KEY_S: return fabgl::VirtualKey::VK_S;
-        case HID_KEY_T: return fabgl::VirtualKey::VK_T;
-        case HID_KEY_U: return fabgl::VirtualKey::VK_U;
-        case HID_KEY_V: return fabgl::VirtualKey::VK_V;
-        case HID_KEY_W: return fabgl::VirtualKey::VK_W;
-        case HID_KEY_X: return fabgl::VirtualKey::VK_X;
-        case HID_KEY_Y: return fabgl::VirtualKey::VK_Y;
-        case HID_KEY_Z: return fabgl::VirtualKey::VK_Z;
-
-        case HID_KEY_0: return fabgl::VirtualKey::VK_0;
-        case HID_KEY_1: return fabgl::VirtualKey::VK_1;
-        case HID_KEY_2: return fabgl::VirtualKey::VK_2;
-        case HID_KEY_3: return fabgl::VirtualKey::VK_3;
-        case HID_KEY_4: return fabgl::VirtualKey::VK_4;
-        case HID_KEY_5: return fabgl::VirtualKey::VK_5;
-        case HID_KEY_6: return fabgl::VirtualKey::VK_6;
-        case HID_KEY_7: return fabgl::VirtualKey::VK_7;
-        case HID_KEY_8: return fabgl::VirtualKey::VK_8;
-        case HID_KEY_9: return fabgl::VirtualKey::VK_9;
-
+   switch(kc) {
         case HID_KEY_KEYPAD_0: return fabgl::VirtualKey::VK_KP_0;
         case HID_KEY_KEYPAD_1: return fabgl::VirtualKey::VK_KP_1;
         case HID_KEY_KEYPAD_2: return fabgl::VirtualKey::VK_KP_2;
@@ -577,31 +607,7 @@ fabgl::VirtualKey map_key(uint8_t kc) {
         case HID_KEY_F11: return fabgl::VirtualKey::VK_F11;
         case HID_KEY_F12: return fabgl::VirtualKey::VK_F12;
 
-        case HID_KEY_ALT_LEFT: return fabgl::VirtualKey::VK_LALT;
-        case HID_KEY_ALT_RIGHT: return fabgl::VirtualKey::VK_RALT;
-        case HID_KEY_CONTROL_LEFT: return fabgl::VirtualKey::VK_LCTRL;
-        case HID_KEY_CONTROL_RIGHT: return fabgl::VirtualKey::VK_RCTRL;
-        case HID_KEY_SHIFT_LEFT: return fabgl::VirtualKey::VK_LSHIFT;
-        case HID_KEY_SHIFT_RIGHT: return fabgl::VirtualKey::VK_RSHIFT;
-        case HID_KEY_CAPS_LOCK: return fabgl::VirtualKey::VK_CAPSLOCK;
-
-        case HID_KEY_TAB: return fabgl::VirtualKey::VK_TAB;
-        case HID_KEY_ENTER: return fabgl::VirtualKey::VK_RETURN;
-        case HID_KEY_ESCAPE: return fabgl::VirtualKey::VK_ESCAPE;
-
         case HID_KEY_GRAVE: return fabgl::VirtualKey::VK_TILDE;
-        case HID_KEY_MINUS: return fabgl::VirtualKey::VK_MINUS;
-        case HID_KEY_EQUAL: return fabgl::VirtualKey::VK_EQUALS;
-        case HID_KEY_BACKSLASH: return fabgl::VirtualKey::VK_BACKSLASH;
-        case HID_KEY_EUROPE_1: return fabgl::VirtualKey::VK_BACKSLASH; // ???
-        case HID_KEY_BRACKET_LEFT: return fabgl::VirtualKey::VK_LEFTBRACKET;
-        case HID_KEY_BRACKET_RIGHT: return fabgl::VirtualKey::VK_RIGHTBRACKET;
-        case HID_KEY_SEMICOLON: return fabgl::VirtualKey::VK_SEMICOLON;
-        case HID_KEY_APOSTROPHE: return fabgl::VirtualKey::VK_QUOTE;
-        case HID_KEY_COMMA: return fabgl::VirtualKey::VK_COMMA;
-        case HID_KEY_PERIOD: return fabgl::VirtualKey::VK_PERIOD;
-        case HID_KEY_SLASH: return fabgl::VirtualKey::VK_SLASH;
-        case HID_KEY_BACKSPACE: return fabgl::VirtualKey::VK_BACKSPACE;
 
         case HID_KEY_ARROW_UP: return fabgl::VirtualKey::VK_UP;
         case HID_KEY_ARROW_DOWN: return fabgl::VirtualKey::VK_DOWN;
@@ -612,6 +618,152 @@ fabgl::VirtualKey map_key(uint8_t kc) {
 //        case HID_KEY_GUI_RIGHT: return fabgl::VirtualKey::VK_F1;
         default: break;
         //debug_number = kc;
+    }
+    if (Config::shifted_layout) {
+      switch(kc) {
+        case HID_KEY_ESCAPE: return fabgl::VirtualKey::VK_MINUS; //VK_ESCAPE;
+        case HID_KEY_1: return fabgl::VirtualKey::VK_EQUALS; //VK_1;
+        case HID_KEY_2: return fabgl::VirtualKey::VK_1; //VK_2;
+        case HID_KEY_3: return fabgl::VirtualKey::VK_2; //VK_3;
+        case HID_KEY_4: return fabgl::VirtualKey::VK_3; //VK_4;
+        case HID_KEY_5: return fabgl::VirtualKey::VK_4; //VK_5;
+        case HID_KEY_6: return fabgl::VirtualKey::VK_5; //VK_6;
+        case HID_KEY_7: return fabgl::VirtualKey::VK_6; //VK_7;
+        case HID_KEY_8: return fabgl::VirtualKey::VK_7; //VK_8;
+        case HID_KEY_9: return fabgl::VirtualKey::VK_8; //VK_9;
+        case HID_KEY_0: return fabgl::VirtualKey::VK_9; //VK_0;
+        case HID_KEY_MINUS: return fabgl::VirtualKey::VK_0; //VK_MINUS;
+        case HID_KEY_EQUAL: return fabgl::VirtualKey::VK_ESCAPE; //VK_EQUALS;
+        case HID_KEY_BACKSPACE: return fabgl::VirtualKey::VK_BACKSPACE;
+
+//        case HID_KEY_TAB: return fabgl::VirtualKey::VK_TAB;
+        case HID_KEY_TAB: return fabgl::VirtualKey::VK_BACKSPACE;
+        case HID_KEY_Q: return fabgl::VirtualKey::VK_LEFTBRACKET; //VK_Q;
+        case HID_KEY_W: return fabgl::VirtualKey::VK_Q; //VK_W;
+        case HID_KEY_E: return fabgl::VirtualKey::VK_W; //VK_E;
+        case HID_KEY_R: return fabgl::VirtualKey::VK_E; //VK_R;
+        case HID_KEY_T: return fabgl::VirtualKey::VK_R; //VK_T;
+        case HID_KEY_Y: return fabgl::VirtualKey::VK_T; //VK_Y;
+        case HID_KEY_U: return fabgl::VirtualKey::VK_Y; //VK_U;
+        case HID_KEY_I: return fabgl::VirtualKey::VK_U; //VK_I;
+        case HID_KEY_O: return fabgl::VirtualKey::VK_I; //VK_O;
+        case HID_KEY_P: return fabgl::VirtualKey::VK_O; //VK_P;
+        case HID_KEY_BRACKET_LEFT: return fabgl::VirtualKey::VK_P; //VK_LEFTBRACKET;
+        case HID_KEY_BRACKET_RIGHT: return fabgl::VirtualKey::VK_QUOTE; //VK_RIGHTBRACKET;
+        case HID_KEY_BACKSLASH: return fabgl::VirtualKey::VK_LALT; // VK_BACKSLASH;
+        case HID_KEY_EUROPE_1: return fabgl::VirtualKey::VK_RALT; // VK_BACKSLASH; // ???
+
+        case HID_KEY_CAPS_LOCK: return fabgl::VirtualKey::VK_SLASH; //VK_CAPSLOCK;
+        case HID_KEY_A: return fabgl::VirtualKey::VK_RIGHTBRACKET; //VK_A;
+        case HID_KEY_S: return fabgl::VirtualKey::VK_A; //VK_S;
+        case HID_KEY_D: return fabgl::VirtualKey::VK_S; //VK_D;
+        case HID_KEY_F: return fabgl::VirtualKey::VK_D; //VK_F;
+        case HID_KEY_G: return fabgl::VirtualKey::VK_F; //VK_G;
+        case HID_KEY_H: return fabgl::VirtualKey::VK_G; //VK_H;
+        case HID_KEY_J: return fabgl::VirtualKey::VK_H; //VK_J;
+        case HID_KEY_K: return fabgl::VirtualKey::VK_J; //VK_K;
+        case HID_KEY_L: return fabgl::VirtualKey::VK_K; //VK_L;
+        case HID_KEY_SEMICOLON: return fabgl::VirtualKey::VK_L; //VK_SEMICOLON;
+        case HID_KEY_APOSTROPHE: return fabgl::VirtualKey::VK_SEMICOLON; //VK_QUOTE;
+        case HID_KEY_ENTER: return fabgl::VirtualKey::VK_RETURN;
+
+        case HID_KEY_SHIFT_LEFT: return fabgl::VirtualKey::VK_LSHIFT;
+        case HID_KEY_Z: return fabgl::VirtualKey::VK_CAPSLOCK; //VK_Z;
+        case HID_KEY_X: return fabgl::VirtualKey::VK_Z; //VK_X;
+        case HID_KEY_C: return fabgl::VirtualKey::VK_X; //VK_C;
+        case HID_KEY_V: return fabgl::VirtualKey::VK_C; //VK_V;
+        case HID_KEY_B: return fabgl::VirtualKey::VK_V; //VK_B;
+        case HID_KEY_N: return fabgl::VirtualKey::VK_B; //VK_N;
+        case HID_KEY_M: return fabgl::VirtualKey::VK_N; //VK_M;
+        case HID_KEY_COMMA: return fabgl::VirtualKey::VK_M; //VK_COMMA;
+        case HID_KEY_PERIOD: return fabgl::VirtualKey::VK_COMMA; //:VK_PERIOD;
+        case HID_KEY_SLASH: return fabgl::VirtualKey::VK_PERIOD; //VK_SLASH;
+        case HID_KEY_SHIFT_RIGHT: return fabgl::VirtualKey::VK_RSHIFT;
+
+        case HID_KEY_CONTROL_LEFT: return fabgl::VirtualKey::VK_LCTRL;
+        case HID_KEY_GUI_LEFT: return fabgl::VirtualKey::VK_F1;
+//        case HID_KEY_GUI_LEFT: return fabgl::VirtualKey::VK_LEFT;
+        case HID_KEY_ALT_LEFT: return fabgl::VirtualKey::VK_LALT;
+//        case HID_KEY_ALT_LEFT: return fabgl::VirtualKey::VK_RIGHT;
+        case HID_KEY_SPACE: return fabgl::VirtualKey::VK_SPACE;
+        case HID_KEY_ALT_RIGHT: return fabgl::VirtualKey::VK_RALT;
+//        case HID_KEY_ALT_RIGHT: return fabgl::VirtualKey::VK_UP;
+        case HID_KEY_APPLICATION: return  fabgl::VirtualKey::VK_F1;
+//        case HID_KEY_APPLICATION: return  fabgl::VirtualKey::VK_DOWN;
+        case HID_KEY_CONTROL_RIGHT: return fabgl::VirtualKey::VK_RCTRL;
+
+        default: break;
+     }
+   } else {
+      switch(kc) {
+        case HID_KEY_ESCAPE: return fabgl::VirtualKey::VK_ESCAPE;
+        case HID_KEY_1: return fabgl::VirtualKey::VK_1;
+        case HID_KEY_2: return fabgl::VirtualKey::VK_2;
+        case HID_KEY_3: return fabgl::VirtualKey::VK_3;
+        case HID_KEY_4: return fabgl::VirtualKey::VK_4;
+        case HID_KEY_5: return fabgl::VirtualKey::VK_5;
+        case HID_KEY_6: return fabgl::VirtualKey::VK_6;
+        case HID_KEY_7: return fabgl::VirtualKey::VK_7;
+        case HID_KEY_8: return fabgl::VirtualKey::VK_8;
+        case HID_KEY_9: return fabgl::VirtualKey::VK_9;
+        case HID_KEY_0: return fabgl::VirtualKey::VK_0;
+        case HID_KEY_MINUS: return fabgl::VirtualKey::VK_MINUS;
+        case HID_KEY_EQUAL: return fabgl::VirtualKey::VK_EQUALS;
+        case HID_KEY_BACKSPACE: return fabgl::VirtualKey::VK_BACKSPACE;
+
+        case HID_KEY_TAB: return fabgl::VirtualKey::VK_TAB;
+        case HID_KEY_Q: return fabgl::VirtualKey::VK_Q;
+        case HID_KEY_W: return fabgl::VirtualKey::VK_W;
+        case HID_KEY_E: return fabgl::VirtualKey::VK_E;
+        case HID_KEY_R: return fabgl::VirtualKey::VK_R;
+        case HID_KEY_T: return fabgl::VirtualKey::VK_T;
+        case HID_KEY_Y: return fabgl::VirtualKey::VK_Y;
+        case HID_KEY_U: return fabgl::VirtualKey::VK_U;
+        case HID_KEY_I: return fabgl::VirtualKey::VK_I;
+        case HID_KEY_O: return fabgl::VirtualKey::VK_O;
+        case HID_KEY_P: return fabgl::VirtualKey::VK_P;
+        case HID_KEY_BRACKET_LEFT: return fabgl::VirtualKey::VK_LEFTBRACKET;
+        case HID_KEY_BRACKET_RIGHT: return fabgl::VirtualKey::VK_RIGHTBRACKET;
+        case HID_KEY_BACKSLASH: return fabgl::VirtualKey::VK_BACKSLASH;
+        case HID_KEY_EUROPE_1: return fabgl::VirtualKey::VK_BACKSLASH; // ???
+
+        case HID_KEY_CAPS_LOCK: return fabgl::VirtualKey::VK_CAPSLOCK;
+        case HID_KEY_A: return fabgl::VirtualKey::VK_A;
+        case HID_KEY_S: return fabgl::VirtualKey::VK_S;
+        case HID_KEY_D: return fabgl::VirtualKey::VK_D;
+        case HID_KEY_F: return fabgl::VirtualKey::VK_F;
+        case HID_KEY_G: return fabgl::VirtualKey::VK_G;
+        case HID_KEY_H: return fabgl::VirtualKey::VK_H;
+        case HID_KEY_J: return fabgl::VirtualKey::VK_J;
+        case HID_KEY_K: return fabgl::VirtualKey::VK_K;
+        case HID_KEY_L: return fabgl::VirtualKey::VK_L;
+        case HID_KEY_SEMICOLON: return fabgl::VirtualKey::VK_SEMICOLON;
+        case HID_KEY_APOSTROPHE: return fabgl::VirtualKey::VK_QUOTE;
+        case HID_KEY_ENTER: return fabgl::VirtualKey::VK_RETURN;
+
+        case HID_KEY_SHIFT_LEFT: return fabgl::VirtualKey::VK_LSHIFT;
+        case HID_KEY_Z: return fabgl::VirtualKey::VK_Z;
+        case HID_KEY_X: return fabgl::VirtualKey::VK_X;
+        case HID_KEY_C: return fabgl::VirtualKey::VK_C;
+        case HID_KEY_V: return fabgl::VirtualKey::VK_V;
+        case HID_KEY_B: return fabgl::VirtualKey::VK_B;
+        case HID_KEY_N: return fabgl::VirtualKey::VK_N;
+        case HID_KEY_M: return fabgl::VirtualKey::VK_M;
+        case HID_KEY_COMMA: return fabgl::VirtualKey::VK_COMMA;
+        case HID_KEY_PERIOD: return fabgl::VirtualKey::VK_PERIOD;
+        case HID_KEY_SLASH: return fabgl::VirtualKey::VK_SLASH;
+        case HID_KEY_SHIFT_RIGHT: return fabgl::VirtualKey::VK_RSHIFT;
+
+        case HID_KEY_CONTROL_LEFT: return fabgl::VirtualKey::VK_LCTRL;
+        case HID_KEY_GUI_LEFT: return fabgl::VirtualKey::VK_F1;
+        case HID_KEY_ALT_LEFT: return fabgl::VirtualKey::VK_LALT;
+        case HID_KEY_SPACE: return fabgl::VirtualKey::VK_SPACE;
+        case HID_KEY_ALT_RIGHT: return fabgl::VirtualKey::VK_RALT;
+        case HID_KEY_APPLICATION: return  fabgl::VirtualKey::VK_F1;
+        case HID_KEY_CONTROL_RIGHT: return fabgl::VirtualKey::VK_RCTRL;
+
+        default: break;
+      }
     }
     return fabgl::VirtualKey::VK_NONE;
 }
@@ -720,7 +872,17 @@ typedef struct mod2key_s {
     enum fabgl::VirtualKey     key;
 } mod2key_t;
 
-static mod2key_t mod2key[] = {
+/*static mod2key_t mod2key_shift[] = {
+    { KEYBOARD_MODIFIER_LEFTCTRL,   fabgl::VirtualKey::VK_LCTRL},
+    { KEYBOARD_MODIFIER_RIGHTCTRL,  fabgl::VirtualKey::VK_RCTRL},
+    { KEYBOARD_MODIFIER_RIGHTSHIFT, fabgl::VirtualKey::VK_RSHIFT},
+    { KEYBOARD_MODIFIER_LEFTSHIFT,  fabgl::VirtualKey::VK_LSHIFT},
+    { KEYBOARD_MODIFIER_LEFTALT,    fabgl::VirtualKey::VK_LEFT},
+    { KEYBOARD_MODIFIER_LEFTGUI,    fabgl::VirtualKey::VK_RIGHT},
+    { KEYBOARD_MODIFIER_RIGHTALT,   fabgl::VirtualKey::VK_UP},
+    { KEYBOARD_MODIFIER_RIGHTGUI,   fabgl::VirtualKey::VK_LALT},
+}; */
+static mod2key_t mod2key_def[] = {
     { KEYBOARD_MODIFIER_LEFTALT,    fabgl::VirtualKey::VK_LALT },
     { KEYBOARD_MODIFIER_RIGHTALT,   fabgl::VirtualKey::VK_RALT },
     { KEYBOARD_MODIFIER_LEFTCTRL,   fabgl::VirtualKey::VK_LCTRL},
@@ -735,6 +897,7 @@ void __not_in_flash_func(process_kbd_report)(
     hid_keyboard_report_t const *report,
     hid_keyboard_report_t const *prev_report
 ) {
+    mod2key_t* mod2key = mod2key_def; // Config::shifted_layout?mod2key_shift:mod2key_def;
     for (int i = 0; i < sizeof(mod2key) / sizeof(mod2key[0]); ++i) {
         if (report->modifier & mod2key[i].mod) { // LALT
             if (!pressed_key[mod2key[i].key]) {

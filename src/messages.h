@@ -608,7 +608,8 @@ static const char *MENU_RGTIMINGS[2] = { "R.G. Timings\n" , "Timings R.G.\n"};
 	"AY-3-8912 Stereo\t>\n"\
     "TurboSound\t>\n"\
     "Covox\t>\n"\
-    "Audio Driver\t>\n"
+    "Audio Driver\t>\n"\
+    "Keyboard Layout\t>\n"
 #define MENU_OTHER_ES "Otros\n"\
     "AY-3-8912 ON/OFF\t>\n"\
     "Temporizaci" "\xA2" "n ULA\t>\n"\
@@ -620,10 +621,11 @@ static const char *MENU_RGTIMINGS[2] = { "R.G. Timings\n" , "Timings R.G.\n"};
     "AY-3-8912 Est" "\x82" "reo\t>\n" \
     "TurboSound\t>\n"\
     "Covox\t>\n"\
-    "Controlador de audio\t>\n"
+    "Controlador de audio\t>\n"\
+    "Distribución de teclado\t>"
 static const char *MENU_OTHER[2] = { MENU_OTHER_EN, MENU_OTHER_ES };
 
-static const char *MENU_AY48[2] = { "Turned on?\n" , "Turned on?\n"};
+static const char *MENU_AY48[2] = { "Turned on?\n" , "Activado?\n"};
 
 #define MENU_KBD2NDPS2_EN "Enable\n"\
     "No\t[N]\n"\
@@ -983,6 +985,15 @@ static const char *MENU_TABASFIRE[2] = { "TAB as fire 1\n" , "TAB disparo 1\n" }
 static const char *MENU_ENTERSPACE[2] = { "as Space\n" , "como Space\n" };
 
 static const char *MENU_WASD[2] = { "WASD/KL\n" , "WASD/KL\n" };
+
+
+#define MENU_KBLAYOUT_EN "Layout\n"\
+    "ZX Shifted\t[Y]\n"\
+    "PC-Like\t[N]\n"
+#define MENU_KBLAYOUT_ES "Distribución\n"\
+    "ZX desplazada\t[Y]\n"\
+    "como PC\t[N]\n"
+static const char *MENU_KBLAYOUT[2] = { MENU_KBLAYOUT_EN, MENU_KBLAYOUT_ES };
 
 #define DEDICATORIA "\nF1Dedicado especialmente a:\r"\
 	"\nB1      _       _ _\r"\

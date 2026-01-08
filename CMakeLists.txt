@@ -27,7 +27,7 @@ option(ZERO "RP2040-PiZero" OFF)
 option(ZERO2 "RP2350-PiZero" OFF)
 
 #set(FLASH_SIZE_GREEN ON)
-set(m1p2launcher ON)
+#set(m1p2launcher ON)
 
 set(VGA_HDMI ON)
 #set(SOFTTV ON)
